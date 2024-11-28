@@ -1,0 +1,68 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.content {
+    min-height: 100vh;
+    /* 确保内容区域占满全屏 */
+    padding-bottom: 60px;
+    /* 为了给导航栏留出空间 */
+}
+
+.bottom-nav {
+    position: fixed;
+    /* 固定位置 */
+    bottom: 0;
+    /* 距离底部0 */
+    left: 0;
+    /* 距离左边0 */
+    width: 100%;
+    /* 100%宽度 */
+    background-color: #e3e3e3;
+    /* 背景颜色 */
+    color: rgb(17, 17, 17);
+    /* 字体颜色 */
+}
+
+.bottom-nav ul {
+    list-style: none;
+    /* 去掉默认列表样式 */
+    padding: 0;
+    margin: 0;
+    display: flex;
+    /* 使用flexbox布局 */
+    justify-content: space-around;
+    /* 等间距分布 */
+}
+
+.bottom-nav a {
+    color: rgb(68, 68, 68);
+    /* 链接颜色 */
+    text-decoration: none;
+    /* 去掉下划线 */
+    padding: 15px;
+    /* 内边距 */
+    display: block;
+    /* 块级元素，使链接区域更大 */
+    outline: none;
+    /* 去掉点击时的轮廓 */
+    -webkit-tap-highlight-color: transparent;
+}
+.bottom-nav a:active {
+    color: inherit;
+    /* 点击时保持颜色 */
+    background-color: transparent;
+    /* 点击时保持背景色 */
+}
+.bottom-nav a:focus {
+    outline: none;
+    /* 去掉聚焦状态的轮廓 */
+}
+
+
+
