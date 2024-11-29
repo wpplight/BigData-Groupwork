@@ -2,16 +2,177 @@
     box-sizing: border-box;
 }
 
+header {
+    background-color: #e7e7e7;
+    padding: 10px;
+    /* text-align: center; */
+    position: fixed;
+    top: 0;
+        /* 距离顶部为0 */
+    left: 0;
+        /* 距离左边为0 */
+    width: 100%;
+        /* 100% 宽度 */
+}
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
 }
 
 .content {
     min-height: 100vh;
     /* 确保内容区域占满全屏 */
+    padding-top: 50px;
     padding-bottom: 60px;
     /* 为了给导航栏留出空间 */
+}
+
+    .search-box {
+            border-radius: 10px;
+            outline: 2px solid #303030;
+            border: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: #ffffff;
+            outline-offset: 3px;
+            padding: 10px 1rem;
+            transition: 0.25s;
+            width: calc(80% - 40px);
+            /* Adjust width */
+            max-width: 400px;
+            /* Limiting width on larger screens */
+        }
+    
+        .input:focus {
+            outline-offset: 5px;
+            background-color: #fff
+        }
+    /* margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px; */
+    
+
+  /* 按钮滑动容器 */
+  .button-slider {
+        display: flex;
+        overflow-x: auto;
+        /* 允许横向滚动 */
+        padding: 10px;
+        background-color:transparent;
+        /* 背景透明 */
+        
+        scroll-behavior: smooth;
+        white-space: nowrap;
+        /* 防止按钮换行 */
+  }
+
+  /* 按钮样式 */
+  .slider-button {
+      outline: none;
+      cursor: pointer;
+      border: none;
+        padding: 0.3rem 1.2rem;
+        /* 更改为更小的上下内边距，减小按钮高度 */
+        border-radius: 12px;
+        /* 将圆角变得不那么圆 */
+        margin: 0 10px;
+        /* 按钮之间的间距 */
+      font-family: inherit;
+      font-size: inherit;
+      position: relative;
+      display: inline-block;
+      letter-spacing: 0.1rem;
+      text-align: center;
+      font-weight: 700;
+      font-size: 17px;
+      border-radius: 500px;
+      /* 圆角 */
+      overflow: hidden;
+      background: #f3a42d;
+      /* 按钮背景颜色 */
+      color: ghostwhite;
+      /* 文本颜色 */
+      width: 100px;
+  }
+
+  .slider-button span {
+      position: relative;
+      z-index: 10;
+      transition: color 0.4s;
+  }
+
+  .slider-button:hover span {
+      color: black;
+      /* 悬停时的文本颜色 */
+  }
+
+  .slider-button::before,
+  .slider-button::after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+  }
+
+  .slider-button::before {
+      content: "";
+      background: #b8b057;
+      /* 黑色背景 */
+      width: 120%;
+      left: -10%;
+      transform: skew(30deg);
+      transition: transform 0.4s cubic-bezier(0.3, 1, 0.8, 1);
+  }
+
+  .slider-button:hover::before {
+      transform: translate3d(100%, 0, 0);
+      /* 悬停时动画效果 */
+  }
+
+.card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+    flex: 0 0 calc(50% - 20px);
+    /* Two cards per row */
+    box-sizing: border-box;
+    /* Include padding and margin in width */
+}
+
+.card img {
+    max-width: 100%;
+    border-radius: 5px;
+}
+
+.card-title {
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.card-price {
+    color: #ff0000;
+}
+
+.card-description {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    /* Allow wrapping of cards */
+    justify-content: center;
+    /* Center the cards */
 }
 
 .bottom-nav {
