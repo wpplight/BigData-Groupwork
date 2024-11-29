@@ -96,7 +96,8 @@ body {
       /* 按钮背景颜色 */
       color: ghostwhite;
       /* 文本颜色 */
-      width: 100px;
+     
+    -webkit-tap-highlight-color: transparent;
   }
 
   .slider-button span {
