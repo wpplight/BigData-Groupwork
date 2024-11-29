@@ -13,6 +13,7 @@ header {
         /* 距离左边为0 */
     width: 100%;
         /* 100% 宽度 */
+        z-index: 21;
 }
 
 body {
@@ -32,6 +33,7 @@ body {
 }
 
     .search-box {
+            z-index: 21;
             border-radius: 10px;
             outline: 2px solid #303030;
             border: 0;
