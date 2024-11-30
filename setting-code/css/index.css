@@ -63,7 +63,7 @@ body {
         display: flex;
         overflow-x: auto;
         /* 允许横向滚动 */
-        padding: 10px;
+        padding-top: 10px;
         background-color:transparent;
         /* 背景透明 */
         
@@ -94,7 +94,7 @@ body {
       border-radius: 500px;
       /* 圆角 */
       overflow: hidden;
-      background: #f3a42d;
+      background: #c6c6c6;
       /* 按钮背景颜色 */
       color: ghostwhite;
       /* 文本颜色 */
@@ -125,7 +125,7 @@ body {
 
   .slider-button::before {
       content: "";
-      background: #b8b057;
+      background: #383838;
       /* 黑色背景 */
       width: 120%;
       left: -10%;
