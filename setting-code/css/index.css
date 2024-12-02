@@ -27,7 +27,7 @@ body {
 .content {
     min-height: 100vh;
     /* 确保内容区域占满全屏 */
-    padding-top: 50px;
+    padding-top: 85px;
     padding-bottom: 60px;
     /* 为了给导航栏留出空间 */
 }
@@ -98,7 +98,7 @@ body {
       /* 按钮背景颜色 */
       color: ghostwhite;
       /* 文本颜色 */
-     
+    min-width: 80px;
     -webkit-tap-highlight-color: transparent;
   }
 
@@ -176,6 +176,7 @@ body {
     /* Allow wrapping of cards */
     justify-content: center;
     /* Center the cards */
+    
 }
 
 .bottom-nav {
