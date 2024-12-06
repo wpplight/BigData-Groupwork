@@ -2,6 +2,17 @@
     box-sizing: border-box;
 }
 
+button {
+    border: none;
+    /* 移除默认边框 */
+    background: none;
+    /* 移除默认背景 */
+    cursor: pointer;
+    /* 更改鼠标指针为手形 */
+    outline: none;
+    /* 移除焦点时的轮廓线 */
+}
+
 header {
     background-color: #e7e7e7;
     padding: 10px;
@@ -27,12 +38,13 @@ body {
 .content {
     min-height: 100vh;
     /* 确保内容区域占满全屏 */
-    padding-top: 85px;
+    padding-top: 95px;
     padding-bottom: 60px;
     /* 为了给导航栏留出空间 */
 }
 
     .search-box {
+            margin-left: 12px;
             z-index: 21;
             border-radius: 15px;
             outline: 2px solid #303030;
@@ -149,6 +161,7 @@ body {
     /* Two cards per row */
     box-sizing: border-box;
     /* Include padding and margin in width */
+    -webkit-tap-highlight-color: transparent;
 }
 
 .card img {
@@ -227,6 +240,28 @@ body {
 .bottom-nav a:focus {
     outline: none;
     /* 去掉聚焦状态的轮廓 */
+}
+
+.search-button {
+    margin-left: 12px;
+    color: #090909;
+    padding: 0.3em 0.8em;
+    font-size: 18px;
+    border-radius: 0.9em;
+    background: #e8e8e8;
+    cursor: pointer;
+    border: 2px solid #e8e8e8;
+    transition: all 0.3s;
+    box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.search-button:hover {
+    border: 1px solid white;
+}
+
+.search-button:active {
+    box-shadow: 4px 4px 8px #c5c5c5, -4px -4px 12px #ffffff;
 }
 
 
