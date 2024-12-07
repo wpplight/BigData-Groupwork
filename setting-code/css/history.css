@@ -2,10 +2,12 @@
     box-sizing: border-box;
 
 }
+
+
 .content {
     min-height: 100vh;
     /* 确保内容区域占满全屏 */
-    padding-top: 50px;
+    padding-top: 40px;
     padding-bottom: 60px;
     /* 为了给导航栏留出空间 */
 }
@@ -60,4 +62,53 @@
     outline: none;
     /* 去掉聚焦状态的轮廓 */
 }
+.history-list {
+    list-style: none;
+    padding: 0;
+}
 
+.history-item {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.history-item h3 {
+    margin: 0 0 5px;
+    font-size: 18px;
+}
+
+.history-item p {
+    margin: 5px 0;
+    color: #666;
+}
+
+header {
+    background-color: #e7e7e7;
+    padding: 10px;
+    /* text-align: center; */
+    position: fixed;
+    top: 0;
+    /* 距离顶部为0 */
+    left: 0;
+    /* 距离左边为0 */
+    width: 100%;
+    /* 100% 宽度 */
+    height: 5%;
+    z-index: 21;
+}
+.header-title {
+    font-size: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    
+}
+.header-setting{
+        font-size: 15px;
+        left: 90%;
+        transform: translateX(-50%);
+        position: absolute;
+}
