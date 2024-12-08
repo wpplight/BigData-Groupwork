@@ -5,7 +5,18 @@ const buttons = document.querySelectorAll('.card');
 buttons.forEach(button => {
     button.addEventListener('click', function () {
         // 在这里处理点击事件
-        alert(`按钮 ${this.querySelector('.card-title').textContent} 被点击了!`);
+        
         var x = this.querySelector('.card-title').textContent;
+        addhistory(x);
+        alert(`按钮 ${this.querySelector('.card-title').textContent} 被点击了!`);
     });
 });
+
+function addhistory(x)
+{   let today = new Date().toISOString().split('T')[0];
+    let history = JSON.parse(localStorage.getItem(today)) || [];
+    if(!history.includes(x))
+    history.push(x);
+    
+    localStorage.setItem(today, JSON.stringify(history));
+}
