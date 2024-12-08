@@ -96,7 +96,7 @@ header {
     /* 距离左边为0 */
     width: 100%;
     /* 100% 宽度 */
-    height: 5%;
+    height: 7%;
     z-index: 21;
 }
 .header-title {
