@@ -540,7 +540,7 @@ namespace mylist{
             }
             head.size++;
             head.length++;
-            return To(to.To_List_weizhi, temp);
+            return To(to.To_List_weizhi-1, temp);
         }
     }
     template <typename T_List>

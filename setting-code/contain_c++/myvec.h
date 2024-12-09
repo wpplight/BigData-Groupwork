@@ -4,7 +4,7 @@
 //*****************************************
 
 // 本来是一坨东西写在一起的但是后面观看了很多c++官方的东西，就把库分开了
-// 查询时可选择vscode crtl+左键单点跳转
+// 查询时vscode crtl+左键单点跳转
 
 //*****************************************
 
@@ -79,7 +79,7 @@ public:
     };
 
     // 公有成员变量,设置初始的默认化尺寸
-    const size_t Myvec_SIZE = 100;
+    const size_t Myvec_SIZE = 1000;
 
     // 构造函数部分
     Myvec(); // 纯初始化
@@ -109,6 +109,7 @@ public:
     T_vec at(To to){ return huoqu(to);}
     size_t get(const T_vec value) { return dedao(value); } // 查询元素对应下标
     void insert(size_t n, const T_vec &value){charu(n, value);} // 插入元素到第n个位置
+    void insert(To to, const T_vec &value){charu(to, value);} // 插入元素到第n个位置
     void clear(){qingchu();} // 清空容器
     void pop_back(){tichu();} // 移除最后一个元素
     bool empty(){return emptym();} // 判断容器是否为空
@@ -151,6 +152,7 @@ friend class To;
     T_vec huoqu(To to);
     To dedao(const T_vec &value);
     To charu(To &to, const T_vec &value);
+    To charu(size_t n, const T_vec &value);
     void qingchu();
     void tichu();
     bool emptym();

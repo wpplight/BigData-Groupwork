@@ -1,7 +1,7 @@
 #ifndef CSV_USE_H
 #define CSV_USE_H
 //******************************************** */
-//本文件为csv_use.h，用于处理csv文件，有两个轻量结构库作为基础，myvec.h和mylist.h，使用时请将这两个文件置于这个同一个文件夹
+//本文件为csv_use.h，用于出来csv文件，有两个轻量结构库作为基础，myvec.h和mylist.h，使用时请将这两个文件置于这个同一个文件夹
 //在主文件引用时请使用using namespace CSV;
 
 // 函数使用表格
@@ -21,7 +21,7 @@
 // int* csv::get_line_int(string& s,int n) | s,n | int* | 返回一行数据，数据类型为int传入的s为"Row"或"Col"，n为行或列的下标，返回的数据类型会调整为数组的形式（从零开始）
 // string* csv::get_cowline_str(int n) | n | string* | 返回第n行数据，数据类型为string，传入的n为行的下标，返回的数据类型会调整为数组的形式（从零开始）
 // string* csv::get_rolline_str(int n) | n | string* | 返回第n列数据，数据类型为string，传入的n为列的下标，返回的数据类型会调整为数组的形式（从零开始）
-//***************************************** */
+//* */
 #include<string>
 #include<fstream>
 #include<iostream>
@@ -82,11 +82,13 @@ class CSV{
     string at(int i, int j) {return at_(i,j);}
     int length_row() {return _get_row();}
     int row_length(int n){return _get_row(n);}
-    int length_col() {return _get_col();}
     int* get_line_int(const string& s,int n) {return return_oneline_data_int(s,n);}
     string* get_cowline_str(int n) {return return_cowoneline_data_str(n);}
     string* get_rolline_str(int n) {return return_coloneline_data_str(n);}
-  
+    void insert_point(int x,int y,const string& s) {insert_where(x,y,s);}
+    void insert_row(int n,const string& s) {add_row(n,s);}
+    void push_row(const string& s) {push_row_(s);}
+    
 
 
     private:
@@ -158,24 +160,25 @@ class CSV{
         else
         strcut(tt,xy_num);
         data.resize(xy_num[0] + 25);
-        for(int i = 0; i < xy_num[0]; i++)
+        for(int i=0;i<xy_num[0];i++)
         {
             data[i].push_back("");
         }
+        
         for(int i = 0; i < xy_num[0]; i++)
         {
-            j = 0;
+            auto j=data[i].begin();
             getline(in, tt);
             for(auto s:tt)
             {
                 if(s == ',')
                 {
-                    j++;
                     data[i].push_back("");
+                    ++j;
                 }
                 else
                 {
-                    data[i][j].push_back(s);
+                    *j += s;
                 }
             }
         }
@@ -184,15 +187,18 @@ class CSV{
 
     void writte()
     {
+        int l;
         ofstream ou(filename, ios::out);
         ou<<xy_num[0]<<','<<xy_num[1]<<","<<'\n';
         for(int i = 0; i < xy_num[0]; i++)
-        {
-            for(int j = 0; j < xy_num[1]; j++)
+        {   auto s=data[i].begin();
+            l=data[i].length();
+
+            for(int j = 0; j < l-1; j++,++s)
             {
-                ou<<data[i][j]<<',';
+                ou<<*s<<',';
             }
-            ou<<'\n';
+            ou<<*s<<'\n';
         }
         ou.close();
     }
@@ -238,18 +244,12 @@ class CSV{
         }
         return data[n-1].length();
     }
-
-    int _get_col()
-    {
-        return xy_num[1];
-    }
-
     void kuorong(int x)
     {
         if(x>xy_num[0] )
         {
             onn = true;
-            data.resize(x+25);
+            data.resize(x+50);
             xy_num[0] = x;
             
         }
@@ -354,11 +354,67 @@ class CSV{
         }
         return one_data_str;
     }
-    void add_row(string& s)
+    void insert_where(int x,int y,const string& s)
+    {
+        
+        auto it=data[x-1].begin();
+        if(y>data[x-1].length())
+        {
+            throw error_csv("下标越界 out of range");
+        }         
+        it.next(y-1);
+        data[x-1].insert(it,s);
+        if(data[x-1].length() > xy_num[1])
+        xy_num[1] = data[x-1].length();
+        onn = true;
+    }
+    void add_row(int n,const string& s)
     {
         onn = true;
+        if(n>xy_num[0])
+        {
+           throw error_csv("下标越界 out of range");
+        }
+        data.insert(n-1,MyList<string>());
+        data[n-1].push_back("");
+        auto j=data[n-1].begin();
+        for(auto i:s)
+        {
+            if(i!='|')
+            {
+                *j+=i;
+            }
+            else
+            {
+                data[n-1].push_back("");
+                ++j;
+            }
+        }
+
         
     }
+    void push_row_(const string& s)
+    {
+        data.push_back(MyList<string>());
+        xy_num[0]++;
+        data[xy_num[0]-1].push_back("");
+        auto j=data[xy_num[0]-1].begin();
+        for (auto i : s)
+        {
+            if (i != '|')
+            {
+                *j += i;
+            }
+            else
+            {
+                data[xy_num[0] - 1].push_back("");
+                ++j;
+            }
+        }
+        if(data[xy_num[0]-1].length() > xy_num[1]) xy_num[1] = data[xy_num[0]-1].length();
+        onn = true;
+    }
+    
 };
 
 }

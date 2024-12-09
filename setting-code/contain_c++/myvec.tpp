@@ -345,6 +345,7 @@ namespace myvec {
         }
         return -1; // 没找到
     }
+
     template <typename T_vec>
      typename Myvec<T_vec>::To Myvec<T_vec>::charu(To &to, const T_vec &value)
     {
@@ -371,6 +372,29 @@ namespace myvec {
             data[n] = value;
             Vec_length++;
             return To(to.to + 1, n + 1);
+        }
+    }
+    template <typename T_vec>
+    typename Myvec<T_vec>::To Myvec<T_vec>::charu(size_t n, const T_vec &value)
+    {
+        if (n < 0 || n >= Vec_length)
+        {
+            throw erroR("容器越界");
+        }
+        else
+        {
+            if (Vec_length >= Vec_size)
+            {
+                kuorong(Vec_length + Myvec_SIZE);
+            }
+
+            for (size_t i = Vec_length - 1; i >= n; i--)
+            {
+                data[i + 1] = data[i];
+            }
+            data[n] = value;
+            Vec_length++;
+            return To(data+n+1, n + 1);
         }
     }
     template <typename T_vec>
