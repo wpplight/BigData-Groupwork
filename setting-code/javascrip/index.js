@@ -15,24 +15,19 @@ buttons.forEach(button => {
 function addhistory(x)
 {   let today = new Date().toISOString().split('T')[0];
     let history = JSON.parse(localStorage.getItem(today)) || [];
-    if (history == []) 
-    {
-        let all = JSON.parse(localStorage.getItem('all')) || [];
+    let all = JSON.parse(localStorage.getItem('all')) || [];
+    if(!all.includes(today))
         all.push(today);
-        if (all.length > 7)
-        {
-            while (all.length > 7)
-            {
-                const first = all[0];
-                all.shift();
-                localStorage.removeItem(first);
-            }
-            localStorage.setItem('all', JSON.stringify(all));
+        while (all.length > 7) {
+            const first = all[0];
+            all.shift();
+            localStorage.removeItem(first);
         }
-        
-    }
+        localStorage.setItem('all', JSON.stringify(all));
     if(!history.includes(x))
     history.push(x);
     
     localStorage.setItem(today, JSON.stringify(history));
 }
+// let all = JSON.parse(localStorage.getItem('all')) || [];
+// localStorage.setItem(today, JSON.stringify(history));
