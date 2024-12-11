@@ -50,6 +50,7 @@ function addlable()
     ii.appendChild(input);
     const span = document.createElement("span");
     span.textContent = "今日";
+    span.id = "today";
     ii.appendChild(span);
     conten.appendChild(ii);
     for (let i = 0;i<allt.length;i++)
@@ -70,6 +71,11 @@ let today = new Date().toISOString().split('T')[0];
 var mm = new Map();
 addlable();
 gethistory(today);
+const today_label = document.getElementById("today");
+today_label.addEventListener("click", function () {
+    document.getElementById("history").innerHTML = "";
+    gethistory(today);
+});
 
 const x = document.querySelectorAll(".label-span");
 for (let i = 0; i < x.length; i++) {
