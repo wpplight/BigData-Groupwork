@@ -1,3 +1,15 @@
+function goto(name) {
+    window.location.href = "content.html"
+    localStorage.setItem("now", name);
+}
+function renew_listen() {
+    const x = document.querySelectorAll(".history-item");
+    for (let i = 0; i < x.length; i++) {
+        x[i].addEventListener("click", function () {
+            goto(this.querySelectorAll("h3")[0].textContent);
+        });
+    }
+}
 function gethistory(day) {
     let history = JSON.parse(localStorage.getItem(day)) || [];
     if (history.length > 0)
@@ -20,6 +32,7 @@ function gethistory(day) {
             li.appendChild(p_date);
            
         }
+        renew_listen();
     }
     
 }
@@ -53,8 +66,9 @@ function addlable()
     span.id = "today";
     ii.appendChild(span);
     conten.appendChild(ii);
-    for (let i = 0;i<allt.length;i++)
+    for (let i = allt.length - 1; i > allt.length - 6; i--)
     {
+        if (i < 0) break;
         if (allt[i] != today) {
             let c = allt[i].split('-');
             c = c[1] + '.' + c[2];
@@ -66,9 +80,16 @@ function addlable()
 
 }
 
+
+
 var allt = JSON.parse(localStorage.getItem('all')) || [];
-let today = new Date().toISOString().split('T')[0];
-var mm = new Map();
+while (allt.length > 18) {
+    const first = allt[0];
+    allt.shift();
+    localStorage.removeItem(first);
+}
+let today =new Date().toISOString().split('T')[0];
+var mm =new Map();
 addlable();
 gethistory(today);
 const today_label = document.getElementById("today");

@@ -22,11 +22,6 @@ function addhistory(x)
     let all = JSON.parse(localStorage.getItem('all')) || [];
     if(!all.includes(today))
         all.push(today);
-        while (all.length > 7) {
-            const first = all[0];
-            all.shift();
-            localStorage.removeItem(first);
-        }
         localStorage.setItem('all', JSON.stringify(all));
     if(!history.includes(x))
     history.push(x);
