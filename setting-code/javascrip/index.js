@@ -1,12 +1,55 @@
 // 选择所有具有 'card' 类的按钮
-
+var resultPtr;
 const buttons = document.querySelectorAll('.card');
+Module.onRuntimeInitialized = function () {
+        // 现在运行时已经准备好
+         resultPtr = _get();  // 安全地调用本地函数
+        
+};
+var mm;  
+function shuaxin()
+{
+    if (!sessionStorage.getItem("login")) {
+        Module.onRuntimeInitialized = function () {
+            // 现在运行时已经准备好
+            resultPtr = _get();
+            console.log(UTF8ToString(resultPtr));
+            mm = UTF8ToString(resultPtr).split("\r ");
+            // console.log(mm);
+            _free(resultPtr);
+            
+        let x=document.querySelectorAll('.card-title');
+        for (let i = 0; i < 6; i++)
+        {
+           
+            x[i].textContent = mm[i];   
+            }
+            localStorage.setItem("mm", JSON.stringify(mm));
+             sessionStorage.setItem("login", "true");
+        }
+       
+    }
+    else
+    {
+        mm = localStorage.getItem("mm");
+        mm=JSON.parse(mm)||[];
+        let x = document.querySelectorAll('.card-title');
+        for (let i = 0; i < 6; i++) {
+            x[i].textContent = mm[i];
+        }
+    }
+        
+        
+        
+}
 
-
-
+    shuaxin();
+    
 
 // 遍历所有按钮并添加事件监听器
+
 buttons.forEach(button => {
+
     button.addEventListener('click', function () {
         // 在这里处理点击事件
         
