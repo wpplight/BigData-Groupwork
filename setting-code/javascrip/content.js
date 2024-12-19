@@ -5,3 +5,4 @@ back.addEventListener("click", function () {
 
 const title = localStorage.getItem("now");
 document.querySelector(".header-title").innerHTML = title;
+document.querySelector(".name").innerHTML = title;

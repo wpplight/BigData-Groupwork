@@ -66,7 +66,10 @@ function addlable()
     span.id = "today";
     ii.appendChild(span);
     conten.appendChild(ii);
-    for (let i = allt.length - 1; i > allt.length - 5; i--)
+    let end;
+    if (allt[allt.length-1] == today) end = allt.length - 6;
+    else end = allt.length - 5;
+    for (let i = allt.length - 1; i > end; i--)
     {
         if (i < 0) break;
         if (allt[i] != today) {
