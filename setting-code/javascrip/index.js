@@ -1,11 +1,6 @@
 // 选择所有具有 'card' 类的按钮
 var resultPtr;
 const buttons = document.querySelectorAll('.card');
-Module.onRuntimeInitialized = function () {
-        // 现在运行时已经准备好
-         resultPtr = _get();  // 安全地调用本地函数
-        
-};
 var mm;  
 function shuaxin()
 {

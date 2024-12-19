@@ -290,6 +290,18 @@ body {
 .search-button:active {
     box-shadow: 4px 4px 8px #d2d2d2, -4px -4px 12px #ffffff;
 }
+.refresh {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ff4d4d;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 1000;
+}
 
 
 
