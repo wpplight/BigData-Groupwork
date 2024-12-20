@@ -36,6 +36,7 @@ body {
 }
 
 .content {
+    overflow-y: scroll;
     min-height: 100vh;
     /* 确保内容区域占满全屏 */
     padding-top: 95px;
@@ -293,11 +294,11 @@ body {
 .refresh {
     display: none;
     position: absolute;
-    top: 0;
+    top: 20%;
     left: 50%;
     transform: translateX(-50%);
-    background-color: #ff4d4d;
-    color: white;
+    background-color: #de7272;
+    color: rgb(229, 229, 229);
     padding: 10px;
     border-radius: 5px;
     z-index: 1000;

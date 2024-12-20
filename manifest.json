@@ -202,8 +202,8 @@
                 "android" : {
                     "mdpi" : "", /*普通屏程序图标，分辨率：48x48*/
                     "ldpi" : "", /*大屏程序图标，分辨率：48x48*/
-                    "hdpi" : "", /*高分屏程序图标，分辨率：72x72*/
-                    "xhdpi" : "", /*720P高分屏程序图标，分辨率：96x96*/
+                    "hdpi" : "unpackage/res/icons/72x72.png", /*高分屏程序图标，分辨率：72x72*/
+                    "xhdpi" : "unpackage/res/icons/96x96.png", /*720P高分屏程序图标，分辨率：96x96*/
                     "xxhdpi" : "unpackage/res/icons/144x144.png", /*1080P 高分屏程序图标，分辨率：144x144*/
                     "xxxhdpi" : "unpackage/res/icons/192x192.png"
                 }
