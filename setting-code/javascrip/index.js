@@ -11,11 +11,10 @@ function shuaxin()
             console.log(UTF8ToString(resultPtr));
             mm = UTF8ToString(resultPtr).split(" ");
             console.log(mm);
-        let x=document.querySelectorAll('.card-title');
-        for (let i = 0; i < 6; i++)
-        {
-           
-            x[i].textContent = mm[i];   
+            let x=document.querySelectorAll('.card-title');
+            for (let i = 0; i < 6; i++)
+            {          
+                x[i].textContent = mm[i];   
             }
             localStorage.setItem("mm", JSON.stringify(mm));
              sessionStorage.setItem("login", "true");
@@ -113,6 +112,10 @@ container.addEventListener('touchend', () => {
 
     isPullingDown = false;
 });
+function resetIndicator() {
+    refreshIndicator.style.transform = 'translateX(-50%) translateY(0)';
+    refreshIndicator.style.display = 'none';
+}
 
 function refresh() {
     refreshIndicator.innerText = '正在加载...';
@@ -128,12 +131,12 @@ function refresh() {
         }
         localStorage.setItem("mm", JSON.stringify(mm));
         sessionStorage.setItem("login", "true");
-        resetIndicator();
-       
-    
+        resetIndicator();   
 }
 
-function resetIndicator() {
-    refreshIndicator.style.transform = 'translateX(-50%) translateY(0)';
-    refreshIndicator.style.display = 'none';
-}
+document.getElementById('search-button').addEventListener('click', function () { 
+    localStorage.setItem("search", document.getElementById('search-input').value);
+    window.location.href = "webpages/search.html";
+});
+
+
