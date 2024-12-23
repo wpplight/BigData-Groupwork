@@ -11,7 +11,7 @@
     padding-bottom: 60px;
     /* 为了给导航栏留出空间 */
 }
-.bottom-nav {
+.menu {
     position: fixed;
     /* 固定位置 */
     bottom: 0;
@@ -20,47 +20,82 @@
     /* 距离左边0 */
     width: 100%;
     /* 100%宽度 */
-    background-color: #e3e3e3;
-    /* 背景颜色 */
-    color: rgb(17, 17, 17);
-    /* 字体颜色 */
-}
+    padding: 0.5rem;
+    background-color: #fff;
 
-.bottom-nav ul {
-    list-style: none;
-    /* 去掉默认列表样式 */
-    padding: 0;
-    margin: 0;
     display: flex;
-    /* 使用flexbox布局 */
-    justify-content: space-around;
-    /* 等间距分布 */
+
+    justify-content: space-between;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px 0 rgba(#000, 0.075);
 }
 
-.bottom-nav a {
-    color: rgb(68, 68, 68);
-    /* 链接颜色 */
-    text-decoration: none;
-    /* 去掉下划线 */
-    padding: 15px;
-    /* 内边距 */
-    display: block;
-    /* 块级元素，使链接区域更大 */
-    outline: none;
-    /* 去掉点击时的轮廓 */
+.link {
     -webkit-tap-highlight-color: transparent;
-}
-
-.bottom-nav a:active {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    height: 50px;
+    border-radius: 8px;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    transform-origin: center left;
+    transition: width 0.2s ease-in;
+    text-decoration: none;
     color: inherit;
-    /* 点击时保持颜色 */
-    background-color: transparent;
-    /* 点击时保持背景色 */
+
+    &:before {
+        position: absolute;
+        z-index: -1;
+        content: "";
+        display: block;
+        border-radius: 8px;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        transform: translateX(100%);
+        transition: transform 0.2s ease-in;
+        transform-origin: center right;
+        background-color: #eee;
+    }
+
+    &:hover,
+    &:focus {
+        outline: 0;
+        width: 130px;
+
+        &:before,
+        .link-title {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
 }
 
-.bottom-nav a:focus {
-    outline: none;
-    /* 去掉聚焦状态的轮廓 */
+.link-icon {
+    width: 28px;
+    height: 28px;
+    display: block;
+    flex-shrink: 0;
+    left: 18px;
+    position: absolute;
+
+    svg {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+.link-title {
+    transform: translateX(100%);
+    transition: transform 0.2s ease-in;
+    transform-origin: center right;
+    display: block;
+    text-align: center;
+    text-indent: 28px;
+    width: 100%;
 }
 .history-list {
     list-style: none;

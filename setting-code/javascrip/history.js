@@ -53,38 +53,18 @@ function creatla(date)
 }
 function addlable()
 {   
-    const conten = document.getElementById("label-box");
-    const ii = document.createElement("label");
-    ii.classList.add("label-i");
-    const input = document.createElement("input");
-    input.type = "radio";
-    input.name = "radio";
-    input.checked = true;
-    ii.appendChild(input);
-    const span = document.createElement("span");
-    span.textContent = "今日";
-    span.id = "today";
-    ii.appendChild(span);
-    conten.appendChild(ii);
-    let end;
-    if (allt[allt.length-1] == today) end = allt.length - 6;
-    else end = allt.length - 5;
-    for (let i = allt.length - 1; i > end; i--)
+    for (let i = allt.length - 1; i > allt.length - 6; i--)
     {
         if (i < 0) break;
-        if (allt[i] != today) {
             let c = allt[i].split('-');
             c = c[1] + '.' + c[2];
             mm.set(c, allt[i]);
             creatla(c);
-        }
+        
 
     }
 
 }
-
-
-
 var allt = JSON.parse(localStorage.getItem('all')) || [];
 while (allt.length > 18) {
     const first = allt[0];
@@ -94,17 +74,23 @@ while (allt.length > 18) {
 let today =new Date().toISOString().split('T')[0];
 var mm =new Map();
 addlable();
-gethistory(today);
-const today_label = document.getElementById("today");
-today_label.addEventListener("click", function () {
-    document.getElementById("history").innerHTML = "";
+const day = sessionStorage.getItem("history");
+if (!day)
+{
     gethistory(today);
-});
+}
+else
+{
+    gethistory(day);
+}
+
+document.getElementById('fuc').focus();
 
 const x = document.querySelectorAll(".label-span");
 for (let i = 0; i < x.length; i++) {
     x[i].addEventListener("click", function () {
         const date = mm.get(this.textContent);
+        sessionStorage.setItem("history", date);
         document.getElementById("history").innerHTML = "";
         gethistory(date);
     });

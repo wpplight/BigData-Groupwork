@@ -45,7 +45,6 @@ buttons.forEach(button => {
 
     button.addEventListener('click', function () {
         // 在这里处理点击事件
-        
         var x = this.querySelector('.card-title').textContent;
         addhistory(x);
         goto(x);
@@ -71,6 +70,8 @@ const refreshIndicator = document.getElementById('refresh');
 let startY = 0;
 let isPullingDown = false;
 const maxPullDistance = 150; // 设定最大下拉距离
+
+document.getElementById('fuc').focus();
 
 // index.js 中添加日志输出
 container.addEventListener('touchstart', (e) => {
@@ -117,9 +118,9 @@ function refresh() {
     refreshIndicator.innerText = '正在加载...';
 
         resultPtr = _get();
-        console.log(UTF8ToString(resultPtr));
+       
         mm = UTF8ToString(resultPtr).split(" ");
-        console.log(mm);
+     
         let x = document.querySelectorAll('.card-title');
         for (let i = 0; i < 6; i++) {
 

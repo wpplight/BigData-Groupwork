@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>下拉刷新示例</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            overflow: hidden;
+        }
+
+        .container {
+            height: 100vh;
+            overflow-y: scroll;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .refresh {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #ff4d4d;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 1000;
+        }
+
+        .content {
+            padding: 20px;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="refresh" id="refresh">正在刷新...</div>
+    <div class="container" id="container">
+        <div class="content">
+            <h1>下拉刷新示例</h1>
+            <p>下拉页面以刷新内容</p>
+            
+            <div style="height: 1000px;"></div>
+        </div>
+    </div>
+
+    <script>
+        const container = document.getElementById('container');
+        const refreshIndicator = document.getElementById('refresh');
+        let startY = 0;
+        let isPullingDown = false;
+
+        container.addEventListener('touchstart', (e) => {
+            if (container.scrollTop === 0) {
+                startY = e.touches[0].clientY;
+                isPullingDown = true;
+            }
+        });
+
+        container.addEventListener('touchmove', (e) => {
+            if (isPullingDown) {
+                const currentY = e.touches[0].clientY;
+                const distance = currentY - startY;
+
+                if (distance > 0) {
+                    e.preventDefault(); // 防止默认的滚动事件
+                    refreshIndicator.style.display = 'block';
+                    refreshIndicator.style.transform = `translateX(-50%) translateY(${distance}px)`;
+                }
+            }
+        });
+
+        container.addEventListener('touchend', () => {
+            if (isPullingDown) {
+                const distance = parseFloat(refreshIndicator.style.transform.match(/translateY$([^)]+)px$/)[1]);
+
+                if (distance > 100) { // 判断下拉距离是否足够
+                    refresh();
+                } else {
+                    resetIndicator();
+                }
+            }
+
+            isPullingDown = false;
+        });
+
+        function refresh() {
+            refreshIndicator.innerText = '正在加载...';
+            // 模拟网络请求
+            setTimeout(() => {
+                resetIndicator();
+                alert('内容已刷新');
+            }, 2000);
+        }
+
+        function resetIndicator() {
+            refreshIndicator.style.transform = 'translateX(-50%) translateY(0)';
+            refreshIndicator.style.display = 'none';
+        }
+    </script>
+</body>
+
+</html>

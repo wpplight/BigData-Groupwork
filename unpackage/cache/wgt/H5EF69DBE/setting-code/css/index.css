@@ -1,0 +1,433 @@
+* {
+    box-sizing: border-box;
+}
+
+button {
+    border: none;
+    /* 移除默认边框 */
+    background: none;
+    /* 移除默认背景 */
+    cursor: pointer;
+    /* 更改鼠标指针为手形 */
+    outline: none;
+    /* 移除焦点时的轮廓线 */
+}
+
+header {background: linear-gradient(to bottom,#d0d0d0, #ffffff );
+    /* background-color: #e7e7e7; */
+    padding: 10px;
+    /* text-align: center; */
+    position: fixed;
+    top: 0;
+        /* 距离顶部为0 */
+    left: 0;
+        /* 距离左边为0 */
+    width: 100%;
+        /* 100% 宽度 */
+        z-index: 21;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e7e7e7;
+}
+
+.content {
+    overflow-y: scroll;
+    min-height: 100vh;
+    /* 确保内容区域占满全屏 */
+    padding-top: 95px;
+    padding-bottom: 60px;
+    /* 为了给导航栏留出空间 */
+    background-color: #f9f9f9;
+}
+
+    .search-box {
+             display: flex;
+             flex-direction: row;
+             justify-content: space-between;
+            margin-left: 12px;
+            z-index: 21;
+            border-radius: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: #ffffff;
+            outline-offset: 3px;
+            padding: 5px 0.5rem;
+            transition: 0.25s;
+            width: calc(80% - 40px);
+            /* Adjust width */
+            max-width: 400px;
+            /* Limiting width on larger screens */
+        }
+        .search-input {
+           
+            margin: 0;
+            /* 右侧边距，留出按钮空间 */
+            padding:0;
+            /* 内边距 */
+            border: none;
+            outline: none;
+            /* 取消默认 outline */
+            
+            width: 65%;
+            font-size: 18px;
+            /* 字体大小 */
+        }
+    
+        .input:focus {
+            outline-offset: 5px;
+            background-color: #fff
+        }
+    /* margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px; */
+    
+
+  /* 按钮滑动容器 */
+  .button-slider {
+        display: flex;
+        overflow-x: auto;
+        /* 允许横向滚动 */
+        padding-top: 10px;
+        background-color:transparent;
+        /* 背景透明 */
+        
+        scroll-behavior: smooth;
+        white-space: nowrap;
+        /* 防止按钮换行 */
+  }
+
+  /* 按钮样式 */
+  .slider-button {
+      outline: none;
+      cursor: pointer;
+      border: none;
+        padding: 0.3rem 1.2rem;
+        /* 更改为更小的上下内边距，减小按钮高度 */
+        border-radius: 12px;
+        /* 将圆角变得不那么圆 */
+        margin: 0 10px;
+        /* 按钮之间的间距 */
+      font-family: inherit;
+      font-size: inherit;
+      position: relative;
+      display: inline-block;
+      letter-spacing: 0.1rem;
+      text-align: center;
+      font-weight: 700;
+      font-size: 17px;
+      border-radius: 500px;
+      /* 圆角 */
+      overflow: hidden;
+      background: #c6c6c6;
+      /* 按钮背景颜色 */
+      color: ghostwhite;
+      /* 文本颜色 */
+    min-width: 80px;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .slider-button span {
+      position: relative;
+      z-index: 10;
+      transition: color 0.4s;
+  }
+
+  .slider-button:hover span {
+      color: black;
+      /* 悬停时的文本颜色 */
+  }
+
+  .slider-button::before,
+  .slider-button::after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+  }
+
+  .slider-button::before {
+      content: "";
+      background: #383838;
+      /* 黑色背景 */
+      width: 120%;
+      left: -10%;
+      transform: skew(30deg);
+      transition: transform 0.4s cubic-bezier(0.3, 1, 0.8, 1);
+  }
+
+  .slider-button:hover::before {
+      transform: translate3d(100%, 0, 0);
+      /* 悬停时动画效果 */
+  }
+
+.card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+    flex: 0 0 calc(50% - 20px);
+    /* Two cards per row */
+    box-sizing: border-box;
+    /* Include padding and margin in width */
+    -webkit-tap-highlight-color: transparent;
+}
+
+.card img {
+    max-width: 100%;
+    border-radius: 5px;
+}
+
+.card-title {
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.card-price {
+    color: #ff0000;
+}
+
+.card-description {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    /* Allow wrapping of cards */
+    justify-content: center;
+    /* Center the cards */
+    
+}
+
+.search-button {
+    margin-left: 6px;
+    color: #090909;
+    padding: 0.2em 0.6em;
+    font-size: 18px;
+    border-radius: 0.9em;
+    background: transparent;
+    cursor: pointer;
+    border: 2px solid white;
+    transition: all 0.3s;
+  
+    -webkit-tap-highlight-color: transparent;
+}
+
+  .search-button-svg {
+      
+     height: 25px;
+     width: 25px;
+     margin:0;
+     padding:0;
+     border: 0;
+      fill: #4a4a4a;
+      /* 图标颜色 */
+  }
+
+.search-button:hover {
+    border: 1px solid white;
+}
+
+.search-button:active {
+    box-shadow: 4px 4px 8px #d2d2d2, -4px -4px 12px #ffffff;
+}
+.refresh {
+    display: none;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #2b2b2b;
+    color: rgb(229, 229, 229);
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 1000;
+}
+/* From Uiverse.io by mobinkakei */
+.wrapper {
+    width: 120px;
+    height: 50px;
+    position: relative;
+    z-index: 1;
+}
+
+.circle {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    border-radius: 50%;
+    background-color: #fff;
+    left: 15%;
+    transform-origin: 50%;
+    animation: circle7124 .5s alternate infinite ease;
+}
+
+@keyframes circle7124 {
+    0% {
+        top: 40px;
+        height: 5px;
+        border-radius: 50px 50px 25px 25px;
+        transform: scaleX(1.7);
+    }
+
+    40% {
+        height: 20px;
+        border-radius: 50%;
+        transform: scaleX(1);
+    }
+
+    100% {
+        top: 0%;
+    }
+}
+
+.circle:nth-child(2) {
+    left: 45%;
+    animation-delay: .2s;
+}
+
+.circle:nth-child(3) {
+    left: auto;
+    right: 15%;
+    animation-delay: .3s;
+}
+
+.shadow {
+    width: 8px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.9);
+    position: absolute;
+    top: 42px;
+    transform-origin: 50%;
+    z-index: -1;
+    left: 15%;
+    filter: blur(1px);
+    animation: shadow046 .5s alternate infinite ease;
+}
+
+@keyframes shadow046 {
+    0% {
+        transform: scaleX(1.5);
+    }
+
+    40% {
+        transform: scaleX(1);
+        opacity: .7;
+    }
+
+    100% {
+        transform: scaleX(.2);
+        opacity: .4;
+    }
+}
+
+.shadow:nth-child(4) {
+    left: 45%;
+    animation-delay: .2s
+}
+
+.shadow:nth-child(5) {
+    left: auto;
+    right: 15%;
+    animation-delay: .3s;
+}
+
+.menu {
+    position: fixed;
+        /* 固定位置 */
+        bottom: 0;
+        /* 距离底部0 */
+        left: 0;
+        /* 距离左边0 */
+        width: 100%;
+        /* 100%宽度 */
+    padding: 0.5rem;
+    background-color: #fff;
+    
+    display: flex;
+
+    justify-content:space-between;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px 0 rgba(#000, 0.075);
+}
+
+.link {
+        -webkit-tap-highlight-color: transparent;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    height: 50px;
+    border-radius: 8px;
+    position: relative;
+    z-index: 1;
+    overflow:hidden;
+    transform-origin: center left;
+    transition: width 0.2s ease-in;
+    text-decoration: none;
+    color: inherit;
+
+    &:before {
+        position: absolute;
+        z-index: -1;
+        content: "";
+        display: block;
+        border-radius: 8px;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        transform: translateX(100%);
+        transition: transform 0.2s ease-in;
+        transform-origin: center right;
+        background-color: #eee;
+    }
+
+    &:hover,
+    &:focus {
+        outline: 0;
+        width: 130px;
+
+        &:before,
+        .link-title {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+}
+
+.link-icon {
+    width: 28px;
+    height: 28px;
+    display: block;
+    flex-shrink: 0;
+    left: 18px;
+    position: absolute;
+
+    svg {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+.link-title {
+    transform: translateX(100%);
+    transition: transform 0.2s ease-in;
+    transform-origin: center right;
+    display: block;
+    text-align: center;
+    text-indent: 28px;
+    width: 100%;
+}
+
+

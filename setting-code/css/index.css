@@ -13,8 +13,8 @@ button {
     /* 移除焦点时的轮廓线 */
 }
 
-header {
-    background-color: #e7e7e7;
+header {background: linear-gradient(to bottom,#d0d0d0, #ffffff );
+    /* background-color: #e7e7e7; */
     padding: 10px;
     /* text-align: center; */
     position: fixed;
@@ -209,56 +209,6 @@ body {
     
 }
 
-.bottom-nav {
-    position: fixed;
-    /* 固定位置 */
-    bottom: 0;
-    /* 距离底部0 */
-    left: 0;
-    /* 距离左边0 */
-    width: 100%;
-    /* 100%宽度 */
-    background-color: #e3e3e3;
-    /* 背景颜色 */
-    color: rgb(17, 17, 17);
-    /* 字体颜色 */
-}
-
-.bottom-nav ul {
-    list-style: none;
-    /* 去掉默认列表样式 */
-    padding: 0;
-    margin: 0;
-    display: flex;
-    /* 使用flexbox布局 */
-    justify-content: space-around;
-    /* 等间距分布 */
-}
-
-.bottom-nav a {
-    color: rgb(68, 68, 68);
-    /* 链接颜色 */
-    text-decoration: none;
-    /* 去掉下划线 */
-    padding: 15px;
-    /* 内边距 */
-    display: block;
-    /* 块级元素，使链接区域更大 */
-    outline: none;
-    /* 去掉点击时的轮廓 */
-    -webkit-tap-highlight-color: transparent;
-}
-.bottom-nav a:active {
-    color: inherit;
-    /* 点击时保持颜色 */
-    background-color: transparent;
-    /* 点击时保持背景色 */
-}
-.bottom-nav a:focus {
-    outline: none;
-    /* 去掉聚焦状态的轮廓 */
-}
-
 .search-button {
     margin-left: 6px;
     color: #090909;
@@ -297,12 +247,187 @@ body {
     top: 20%;
     left: 50%;
     transform: translateX(-50%);
-    background-color: #de7272;
+    background-color: #2b2b2b;
     color: rgb(229, 229, 229);
     padding: 10px;
     border-radius: 5px;
     z-index: 1000;
 }
+/* From Uiverse.io by mobinkakei */
+.wrapper {
+    width: 120px;
+    height: 50px;
+    position: relative;
+    z-index: 1;
+}
 
+.circle {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    border-radius: 50%;
+    background-color: #fff;
+    left: 15%;
+    transform-origin: 50%;
+    animation: circle7124 .5s alternate infinite ease;
+}
+
+@keyframes circle7124 {
+    0% {
+        top: 40px;
+        height: 5px;
+        border-radius: 50px 50px 25px 25px;
+        transform: scaleX(1.7);
+    }
+
+    40% {
+        height: 20px;
+        border-radius: 50%;
+        transform: scaleX(1);
+    }
+
+    100% {
+        top: 0%;
+    }
+}
+
+.circle:nth-child(2) {
+    left: 45%;
+    animation-delay: .2s;
+}
+
+.circle:nth-child(3) {
+    left: auto;
+    right: 15%;
+    animation-delay: .3s;
+}
+
+.shadow {
+    width: 8px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.9);
+    position: absolute;
+    top: 42px;
+    transform-origin: 50%;
+    z-index: -1;
+    left: 15%;
+    filter: blur(1px);
+    animation: shadow046 .5s alternate infinite ease;
+}
+
+@keyframes shadow046 {
+    0% {
+        transform: scaleX(1.5);
+    }
+
+    40% {
+        transform: scaleX(1);
+        opacity: .7;
+    }
+
+    100% {
+        transform: scaleX(.2);
+        opacity: .4;
+    }
+}
+
+.shadow:nth-child(4) {
+    left: 45%;
+    animation-delay: .2s
+}
+
+.shadow:nth-child(5) {
+    left: auto;
+    right: 15%;
+    animation-delay: .3s;
+}
+
+.menu {
+    position: fixed;
+        /* 固定位置 */
+        bottom: 0;
+        /* 距离底部0 */
+        left: 0;
+        /* 距离左边0 */
+        width: 100%;
+        /* 100%宽度 */
+    padding: 0.5rem;
+    background-color: #fff;
+    
+    display: flex;
+
+    justify-content:space-between;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px 0 rgba(#000, 0.075);
+}
+
+.link {
+        -webkit-tap-highlight-color: transparent;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    height: 50px;
+    border-radius: 8px;
+    position: relative;
+    z-index: 1;
+    overflow:hidden;
+    transform-origin: center left;
+    transition: width 0.2s ease-in;
+    text-decoration: none;
+    color: inherit;
+
+    &:before {
+        position: absolute;
+        z-index: -1;
+        content: "";
+        display: block;
+        border-radius: 8px;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        transform: translateX(100%);
+        transition: transform 0.2s ease-in;
+        transform-origin: center right;
+        background-color: #eee;
+    }
+
+    &:hover,
+    &:focus {
+        outline: 0;
+        width: 130px;
+
+        &:before,
+        .link-title {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+}
+
+.link-icon {
+    width: 28px;
+    height: 28px;
+    display: block;
+    flex-shrink: 0;
+    left: 18px;
+    position: absolute;
+
+    svg {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+.link-title {
+    transform: translateX(100%);
+    transition: transform 0.2s ease-in;
+    transform-origin: center right;
+    display: block;
+    text-align: center;
+    text-indent: 28px;
+    width: 100%;
+}
 
 
