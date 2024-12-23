@@ -134,9 +134,9 @@ function refresh() {
         resetIndicator();   
 }
 
-document.getElementById('search-button').addEventListener('click', function () { 
+function gg() { 
     localStorage.setItem("search", document.getElementById('search-input').value);
     window.location.href = "webpages/search.html";
-});
+}
 
 
