@@ -1,5 +1,6 @@
 #ifndef CSV_USE_H
 #define CSV_USE_H
+//任务：当前阶段无
 //******************************************** */
 //本文件为csv_use.h，用于出来csv文件，有两个轻量结构库作为基础，myvec.h和mylist.h，使用时请将这两个文件置于这个同一个文件夹
 //在主文件引用时请使用using namespace CSV;
@@ -27,8 +28,10 @@
 #include<iostream>
 #include"myvec.h"
 #include"mylist.h"
+
 using namespace mylist;
 using namespace myvec;
+
 namespace csv{
 using std::ifstream;
 using std::ofstream;
@@ -39,10 +42,12 @@ class CSV{
     public:
     CSV(const string& file){
         this->filename = file;
-        tome();
+        open(file);
     }
 
     ~CSV(){
+       
+        
         delete_all();
         if(!onn&&inn)
         {
@@ -58,20 +63,16 @@ class CSV{
         
     }
 
-    const string& operator()(int i, int j) const
-            {
-                if (i < 1 || j < 1)
-                {
-                    throw error_csv("out of range");
-                }
-                return  data[i-1][j-1];
-            }
+    
         string& operator() (int i, int j) {
-            if( i < 1 || j < 1)
+            if( i < 1 || j < 1||i>xy_num[0])
             {
                 throw error_csv("out of range");
             }
-            onn = true;
+            if (i > row_now)
+            gengxin(i);
+            // onn = true;
+            if(data[i-1].empty()) data[i-1].push_back("");
             return data[i-1][j-1];
         }
         
@@ -89,13 +90,22 @@ class CSV{
     void insert_row(int n,const string& s) {add_row(n,s);}
     void push_row(const string& s) {push_row_(s);}
     
+    void resize(int n) {kuorong(n);}
+
+    void change(int n,const string& s)
+    {
+        exchange(n,s);
+    }
 
 
     private:
         bool inn = false;
         bool onn = false;
         string filename;
+        int row_now = 0;
         int xy_num[2] = {0};
+        MyList<int> Change;
+        Myvec<string> str_order;
         Myvec<MyList<string>> data;
         int *one_data=nullptr;
         string *one_data_str=nullptr;
@@ -106,7 +116,40 @@ class CSV{
             }
             string msg_;
         };
+        void open(const string& s)
+        {
+            
+            ifstream in;
+            in.open(s, ios::in);
+            if(!in)
+            {
+                ofstream ou(s, ios::out);
+                ou<<0<<','<<0<<","<<'\n';
+                ou.close();
+            }
+            
+            
+            string tt = "";
+            int j;
+            string line;
+            getline(in, tt);
+            if (tt == "") inn = true;
+            else strcut(tt, xy_num);
+            
+            if(xy_num[0]>data.size())
+            {
+                data.resize(xy_num[0] + 25);
+            }
+            
+            if(xy_num[0]>=str_order.size())
+            str_order.resize(xy_num[0] + 25);
 
+            for (int i = 1; i <= xy_num[0]; i++)
+            {
+                getline(in, tt);
+                str_order[i] = tt;
+            }
+        }
         void delete_all()
         {
             if(one_data!=nullptr)
@@ -142,74 +185,65 @@ class CSV{
             
     }
 
-    void tome()
+    void gengxin(int n)
     {
-        string tt="";
-        int j;
-        ifstream in(filename, ios::in);
-        if (!in)
+        if(data[n-1].empty())
         {
-            throw error_csv("File not exist: " + filename); // 使用标准异常
-        }
-        string line;
-        getline(in, tt);
-        if(tt=="")
-        {
-            inn = true;
-        }
-        else
-        strcut(tt,xy_num);
-        data.resize(xy_num[0] + 25);
-        for(int i=0;i<xy_num[0];i++)
-        {
-            data[i].push_back("");
-        }
-        
-        for(int i = 0; i < xy_num[0]; i++)
-        {
-            auto j=data[i].begin();
-            getline(in, tt);
-            for(auto s:tt)
+            data[n-1].push_back("");
+            Change.push_back(n);
+            auto j=data[n-1].begin();
+            for(auto i:str_order[n])
             {
-                if(s == ',')
+                if(i==',')
                 {
-                    data[i].push_back("");
+                    data[n - 1].push_back("");
                     ++j;
                 }
                 else
                 {
-                    *j += s;
+                    *j += i;
                 }
             }
         }
-        in.close();
     }
 
+    
     void writte()
     {
-        int l;
+        int l,len;
         ofstream ou(filename, ios::out);
-        ou<<xy_num[0]<<','<<xy_num[1]<<","<<'\n';
-        for(int i = 0; i < xy_num[0]; i++)
-        {   auto s=data[i].begin();
-            l=data[i].length();
+       
 
-            for(int j = 0; j < l-1; j++,++s)
+        for(auto j:Change)
+        {
+            int len=data[j-1].length();
+            if (len>xy_num[1]) xy_num[1] =len;
+            auto k = data[j - 1].begin();
+            str_order[j] = "";
+            for(int i=0;i<len-1;i++)
             {
-                ou<<*s<<',';
+                str_order[j] += *k;
+                str_order[j] += ',';
+                ++k;
             }
-            ou<<*s<<'\n';
+            str_order[j] += *k;
+        }
+        ou << xy_num[0] << ',' << xy_num[1] << "," << '\n';
+        for(int i = 1; i <= xy_num[0]; i++)
+        {   
+            ou<<str_order[i]<<'\n';
         }
         ou.close();
     }
 
-    void qingchu()
+    void qingchu() /// 设置inn变量为true，表示某种状态或条件已被满足
     {
-        bool inn = true;
+         inn = true;
     }
 
     void printt()
     {
+       
         cout<<"filename:"<<filename<<'\n';
         cout<<"row:"<<xy_num[0]<<"  col:"<<xy_num[1]<<'\n';
         for(int i = 0; i < xy_num[0]; i++)
@@ -224,10 +258,11 @@ class CSV{
 
     string at_(int i, int j)
     {
-        if(i > xy_num[0] || j > data[i-1].length())
+        if(i > xy_num[0] || j > data[i-1].length()|| i < 1 || j < 1)
         {
             throw error_csv("out of range");
         }
+        gengxin(i);
         return data[i-1][j-1];
     }
 
@@ -242,6 +277,7 @@ class CSV{
         {
             throw error_csv("下标越界 out of range");
         }
+        gengxin(n);
         return data[n-1].length();
     }
     void kuorong(int x)
@@ -250,6 +286,7 @@ class CSV{
         {
             onn = true;
             data.resize(x+50);
+            str_order.resize(x+50);
             xy_num[0] = x;
             
         }
@@ -265,10 +302,12 @@ class CSV{
             }
             else
             {
+
                 if(one_data!=nullptr)
                 {
                     delete[] one_data;
                 }
+                gengxin(n);
                 one_data = new int[data[n-1].length()];
                 auto it=data[n-1].begin();
                 auto end=data[n-1].end();
@@ -295,6 +334,7 @@ class CSV{
                 one_data = new int[xy_num[0]];
                 for(int i=0;i<xy_num[0];i++)
                 {
+                    gengxin(i+1);
                     one_data[i] = stoi(data[i][n-1]);
                 }
 
@@ -316,16 +356,18 @@ class CSV{
             }
             else
             {
+                
                 if(one_data_str!=nullptr)
                 {
                     delete[] one_data_str;
                 }
+                gengxin(n);
                 one_data_str = new string[data[n-1].length()];
                 auto it=data[n-1].begin();
                 auto end=data[n-1].end();
                 int i = 0;
                 for (it;it!=end;++it,++i)
-                {
+                {                   
                     one_data_str[i] = *it;
                 }
                 
@@ -349,6 +391,11 @@ class CSV{
             one_data_str = new string[xy_num[0]];
             for (int i = 0; i < xy_num[0]; i++)
             {
+                gengxin(i + 1);
+                if(n>=data[i].length())
+                {
+                    throw error_csv("下标越界 out of range");
+                }
                 one_data_str[i] = data[i][n - 1];
             }
         }
@@ -356,12 +403,16 @@ class CSV{
     }
     void insert_where(int x,int y,const string& s)
     {
-        
+        if(x>xy_num[0]|| x<1)
+        {
+            throw error_csv("下标越界 out of range");
+        }
+        gengxin(x);
         auto it=data[x-1].begin();
         if(y>data[x-1].length())
         {
             throw error_csv("下标越界 out of range");
-        }         
+        }        
         it.next(y-1);
         data[x-1].insert(it,s);
         if(data[x-1].length() > xy_num[1])
@@ -370,14 +421,20 @@ class CSV{
     }
     void add_row(int n,const string& s)
     {
-        onn = true;
-        if(n>xy_num[0])
+        
+        if(n>xy_num[0]|| n<1)
         {
            throw error_csv("下标越界 out of range");
         }
+        ++xy_num[0];
         data.insert(n-1,MyList<string>());
-        data[n-1].push_back("");
-        auto j=data[n-1].begin();
+        auto it=Change.begin();
+        for (int i = 0;i<Change.length();++i,++it)
+        {
+            if(*it>=n)
+                *it++;
+        }
+        auto j = data[n - 1].begin();
         for(auto i:s)
         {
             if(i!='|')
@@ -390,8 +447,9 @@ class CSV{
                 ++j;
             }
         }
-
-        
+        if (data[n - 1].length() > xy_num[1])
+            xy_num[1] = data[n - 1].length();
+        onn = true;
     }
     void push_row_(const string& s)
     {
@@ -411,7 +469,33 @@ class CSV{
                 ++j;
             }
         }
+        Change.push_back(xy_num[0]);
         if(data[xy_num[0]-1].length() > xy_num[1]) xy_num[1] = data[xy_num[0]-1].length();
+        onn = true;
+    }
+    void exchange(int n,const string& s)
+    {
+        if(n<1||n>xy_num[0])
+        {
+            throw error_csv("下标越界 out of range");
+        }
+        Change.push_back(n);
+        data[n-1].clear();
+        data[n-1].push_back("");
+        auto j=data[n-1].begin();
+        for (auto i : s)
+        {
+            if (i != '|')
+            {
+                *j += i;
+            }
+            else
+            {
+                data[n - 1].push_back("");
+                ++j;
+            }
+        }
+
         onn = true;
     }
     
