@@ -40,6 +40,7 @@ using std::string;
 using std::cout;
 class CSV{
     public:
+    CSV(){}
     CSV(const string& file){
         this->filename = file;
         open(file);
@@ -76,7 +77,7 @@ class CSV{
             return data[i-1][j-1];
         }
         
-
+    void open_(const string& s){open(s);};
     void clear() {qingchu();}
     void print() {printt();}
     void write() {writte();}
@@ -89,6 +90,7 @@ class CSV{
     void insert_point(int x,int y,const string& s) {insert_where(x,y,s);}
     void insert_row(int n,const string& s) {add_row(n,s);}
     void push_row(const string& s) {push_row_(s);}
+    void push_row_end(int n,const string& s) {endjia(n,s);}
     
     void resize(int n) {kuorong(n);}
 
@@ -298,7 +300,7 @@ class CSV{
         {
             if(n>xy_num[0])
             {
-                throw error_csv("下标越界 out of range");
+                throw error_csv("下标越界 out of range from get_line_int");
             }
             else
             {
@@ -400,6 +402,18 @@ class CSV{
             }
         }
         return one_data_str;
+    }
+    void endjia(int x,const string& s)
+    {
+        if(x>xy_num[0]|| x<1)
+        {
+            throw error_csv("下标越界 out of range from push_row_end");
+        }
+        gengxin(x);
+        data[x-1].push_back(s);
+        if(data[x-1].length() > xy_num[1])
+            xy_num[1]++;
+        onn = true;
     }
     void insert_where(int x,int y,const string& s)
     {

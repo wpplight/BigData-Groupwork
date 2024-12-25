@@ -1,7 +1,8 @@
 // 选择所有具有 'card' 类的按钮
 var resultPtr;
 const buttons = document.querySelectorAll('.card');
-var mm;  
+var mm;
+  
 function shuaxin()
 {
     if (!sessionStorage.getItem("login")) {
@@ -45,8 +46,9 @@ buttons.forEach(button => {
     button.addEventListener('click', function () {
         // 在这里处理点击事件
         var x = this.querySelector('.card-title').textContent;
+        var y = this.querySelector('.card-price').innerText.split('￥')[1];
         addhistory(x);
-        goto(x);
+        goto(x,y);
     });
 });
 

@@ -6,7 +6,12 @@
     <title>详情页</title>
     <link rel="stylesheet" href="../setting-code/css/content.css">
 </head>
-
+<style>
+    canvas {
+        width: 60px;
+        height: 60px;
+    }
+</style>
 <header>
     <svg id="back" width="35" height="35" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M15.41 7.41L14 6L8 12L14 18L15.41 16.59L10.83 12L15.41 7.41Z" fill="black" />
@@ -30,7 +35,7 @@
             <div class="price">
                 ￥88
             </div>
-            <button class="styled-button">
+            <button class="styled-button" id="buttonto">
                 <span>前往</span>
                 <div class="inner-button">
                     <svg id="Arrow" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" height="30px" width="30px" class="icon">
@@ -50,6 +55,13 @@
             <div class="name">
                 
             </div>
+            <div class="position">
+                <p>地点:紫竹餐厅三楼</p>
+            </div>
+            <div>
+                <p class="market",id="market">店铺:</p>
+            </div>
+            <canvas id="radarChart"></canvas>
 
         </div>
 
@@ -58,5 +70,8 @@
         
     </div>
 </body>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="../setting-code/javascrip/content_c.js"></script>
 <script src="../setting-code/javascrip/content.js"></script>
 </html>

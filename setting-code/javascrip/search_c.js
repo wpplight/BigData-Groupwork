@@ -35,7 +35,7 @@ if (ENVIRONMENT_IS_NODE) {
 
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
-// include: C:\Users\hp\AppData\Local\Temp\tmpx4m_wag5.js
+// include: C:\Users\hp\AppData\Local\Temp\tmpb89til9b.js
 
   Module['expectedDataFileDownloads'] ??= 0;
   Module['expectedDataFileDownloads']++;
@@ -54,8 +54,8 @@ if (ENVIRONMENT_IS_NODE) {
         // web worker
         PACKAGE_PATH = encodeURIComponent(location.pathname.substring(0, location.pathname.lastIndexOf('/')) + '/');
       }
-      var PACKAGE_NAME = 'search.data';
-      var REMOTE_PACKAGE_BASE = 'search.data';
+      var PACKAGE_NAME = 'search_c.data';
+      var REMOTE_PACKAGE_BASE = 'search_c.data';
       var REMOTE_PACKAGE_NAME = Module['locateFile'] ? Module['locateFile'](REMOTE_PACKAGE_BASE, '') : REMOTE_PACKAGE_BASE;
 var REMOTE_PACKAGE_SIZE = metadata['remote_package_size'];
 
@@ -145,6 +145,7 @@ var REMOTE_PACKAGE_SIZE = metadata['remote_package_size'];
       function assert(check, msg) {
         if (!check) throw msg + new Error().stack;
       }
+Module['FS_createPath']("/", "assest", true, true);
 
       /** @constructor */
       function DataRequest(start, end, audio) {
@@ -188,10 +189,10 @@ var REMOTE_PACKAGE_SIZE = metadata['remote_package_size'];
           var files = metadata['files'];
           for (var i = 0; i < files.length; ++i) {
             DataRequest.prototype.requests[files[i].filename].onload();
-          }          Module['removeRunDependency']('datafile_search.data');
+          }          Module['removeRunDependency']('datafile_search_c.data');
 
       };
-      Module['addRunDependency']('datafile_search.data');
+      Module['addRunDependency']('datafile_search_c.data');
 
       Module['preloadResults'] ??= {};
 
@@ -211,25 +212,25 @@ var REMOTE_PACKAGE_SIZE = metadata['remote_package_size'];
     }
 
     }
-    loadPackage({"files": [{"filename": "/data.csv", "start": 0, "end": 4766}], "remote_package_size": 4766});
+    loadPackage({"files": [{"filename": "/assest/data.csv", "start": 0, "end": 5045}, {"filename": "/assest/hash_index.csv", "start": 5045, "end": 11115}, {"filename": "/assest/markets.csv", "start": 11115, "end": 15359}, {"filename": "/assest/marks.csv", "start": 15359, "end": 20293}], "remote_package_size": 20293});
 
   })();
 
-// end include: C:\Users\hp\AppData\Local\Temp\tmpx4m_wag5.js
-// include: C:\Users\hp\AppData\Local\Temp\tmpp7yliavd.js
+// end include: C:\Users\hp\AppData\Local\Temp\tmpb89til9b.js
+// include: C:\Users\hp\AppData\Local\Temp\tmpl6xv4lf4.js
 
     // All the pre-js content up to here must remain later on, we need to run
     // it.
     if (Module['$ww'] || (typeof ENVIRONMENT_IS_PTHREAD != 'undefined' && ENVIRONMENT_IS_PTHREAD)) Module['preRun'] = [];
     var necessaryPreJSTasks = Module['preRun'].slice();
-  // end include: C:\Users\hp\AppData\Local\Temp\tmpp7yliavd.js
-// include: C:\Users\hp\AppData\Local\Temp\tmp3vrcwrym.js
+  // end include: C:\Users\hp\AppData\Local\Temp\tmpl6xv4lf4.js
+// include: C:\Users\hp\AppData\Local\Temp\tmpi9kxc3aq.js
 
     if (!Module['preRun']) throw 'Module.preRun should exist because file support used it; did a pre-js delete it?';
     necessaryPreJSTasks.forEach((task) => {
       if (Module['preRun'].indexOf(task) < 0) throw 'All preRun tasks that exist before user pre-js code should remain after; did you replace Module or modify Module.preRun?';
     });
-  // end include: C:\Users\hp\AppData\Local\Temp\tmp3vrcwrym.js
+  // end include: C:\Users\hp\AppData\Local\Temp\tmpi9kxc3aq.js
 
 
 // Sometimes an existing Module object exists with properties
@@ -809,7 +810,7 @@ function createExportWrapper(name, nargs) {
 // include: runtime_exceptions.js
 // end include: runtime_exceptions.js
 function findWasmBinary() {
-    var f = 'search.wasm';
+    var f = 'search_c.wasm';
     if (!isDataURI(f)) {
       return locateFile(f);
     }
@@ -4525,9 +4526,10 @@ var wasmImports = {
 var wasmExports = createWasm();
 var ___wasm_call_ctors = createExportWrapper('__wasm_call_ctors', 0);
 var _search = Module['_search'] = createExportWrapper('search', 1);
+var _malloc = Module['_malloc'] = createExportWrapper('malloc', 1);
+var _getcost = Module['_getcost'] = createExportWrapper('getcost', 1);
 var _fflush = createExportWrapper('fflush', 1);
 var _strerror = createExportWrapper('strerror', 1);
-var _malloc = Module['_malloc'] = createExportWrapper('malloc', 1);
 var _free = Module['_free'] = createExportWrapper('free', 1);
 var _emscripten_stack_init = () => (_emscripten_stack_init = wasmExports['emscripten_stack_init'])();
 var _emscripten_stack_get_free = () => (_emscripten_stack_get_free = wasmExports['emscripten_stack_get_free'])();

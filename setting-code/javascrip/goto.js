@@ -1,6 +1,9 @@
-function goto(name)
+function goto(name,price)
 {
-    window.location.href = "webpages/content.html"
     localStorage.setItem("now", name);
+    localStorage.setItem("nowprice", price);
+    window.location.href = "webpages/content.html"
 }
+    
+   
 

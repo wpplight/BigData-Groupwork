@@ -1,12 +1,24 @@
 
 Module.onRuntimeInitialized = function () {
-    // JavaScript 代码
+
     function passStringToWasm(jsString) {
         const utf8Bytes = new TextEncoder().encode(jsString);
         const ptr = Module._malloc(utf8Bytes.length + 1); // +1 是为了终止符 '\0'
         Module.HEAPU8.set(utf8Bytes, ptr);
         Module.HEAPU8[ptr + utf8Bytes.length] = 0; // 添加终止符
         return ptr;
+    }
+    function addhistory(x) {
+        let today = new Date().toISOString().split('T')[0];
+        let history = JSON.parse(localStorage.getItem(today)) || [];
+        let all = JSON.parse(localStorage.getItem('all')) || [];
+        if (!all.includes(today))
+            all.push(today);
+        localStorage.setItem('all', JSON.stringify(all));
+        if (!history.includes(x))
+            history.push(x);
+
+        localStorage.setItem(today, JSON.stringify(history));
     }
 
     function getStringFromWasm(ptr) {
@@ -23,16 +35,16 @@ Module.onRuntimeInitialized = function () {
         const x = document.querySelectorAll(".search-item");
         for (let i = 0; i < x.length; i++) {
             x[i].addEventListener("click", function () {
+                addhistory(this.querySelectorAll("h3")[0].textContent);
+                localStorage.setItem("nowprice", parseInt(this.querySelector("#price").textContent.split(":")[1]));
                 window.location.href = "content.html"
                 localStorage.setItem("now", this.querySelectorAll("h3")[0].textContent);
             });
         }
     }
     function getsearch() {
-
-        if (history.length > 0) {
+        console.log("getsearch");
             const content = document.getElementById("list");
-
             for (let i =  result.length - 2; i >= 0; i--) {
                 const li = document.createElement("li");
                 li.classList.add("search-item");
@@ -44,12 +56,18 @@ Module.onRuntimeInitialized = function () {
                 // p_time.textContent = "时间: " + day;
                 // li.appendChild(p_time);
                 const p_date = document.createElement("p");
-                p_date.textContent = "价格：123";
+                p_date.id="price";
+                const inputStr = result[i];
+                const inputPtr = passStringToWasm(inputStr);
+                const resultPtr = Module._getcost(inputPtr);
+                r = getStringFromWasm(resultPtr);
+                Module._free(inputPtr);
+                Module._free(resultPtr);
+                p_date.textContent = "价格:"+r+"元";
                 li.appendChild(p_date);
-
             }
             renew_listen();
-        }
+        
 
     }
     function calculate() {
@@ -59,7 +77,7 @@ Module.onRuntimeInitialized = function () {
        result = getStringFromWasm(resultPtr);
 
 
-        result = result.split("\r ");
+        result = result.split(" ");
         console.log(result);
         getsearch();
 
