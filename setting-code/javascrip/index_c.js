@@ -35,7 +35,7 @@ if (ENVIRONMENT_IS_NODE) {
 
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
-// include: C:\Users\hp\AppData\Local\Temp\tmpq_qvolci.js
+// include: C:\Users\hp\AppData\Local\Temp\tmpudvaszuy.js
 
   Module['expectedDataFileDownloads'] ??= 0;
   Module['expectedDataFileDownloads']++;
@@ -54,8 +54,8 @@ if (ENVIRONMENT_IS_NODE) {
         // web worker
         PACKAGE_PATH = encodeURIComponent(location.pathname.substring(0, location.pathname.lastIndexOf('/')) + '/');
       }
-      var PACKAGE_NAME = 'content_c.data';
-      var REMOTE_PACKAGE_BASE = 'content_c.data';
+      var PACKAGE_NAME = 'index_c.data';
+      var REMOTE_PACKAGE_BASE = 'index_c.data';
       var REMOTE_PACKAGE_NAME = Module['locateFile'] ? Module['locateFile'](REMOTE_PACKAGE_BASE, '') : REMOTE_PACKAGE_BASE;
 var REMOTE_PACKAGE_SIZE = metadata['remote_package_size'];
 
@@ -189,10 +189,10 @@ Module['FS_createPath']("/", "assest", true, true);
           var files = metadata['files'];
           for (var i = 0; i < files.length; ++i) {
             DataRequest.prototype.requests[files[i].filename].onload();
-          }          Module['removeRunDependency']('datafile_content_c.data');
+          }          Module['removeRunDependency']('datafile_index_c.data');
 
       };
-      Module['addRunDependency']('datafile_content_c.data');
+      Module['addRunDependency']('datafile_index_c.data');
 
       Module['preloadResults'] ??= {};
 
@@ -212,25 +212,25 @@ Module['FS_createPath']("/", "assest", true, true);
     }
 
     }
-    loadPackage({"files": [{"filename": "/assest/data.csv", "start": 0, "end": 5045}, {"filename": "/assest/hash_index.csv", "start": 5045, "end": 11115}, {"filename": "/assest/markets.csv", "start": 11115, "end": 15359}, {"filename": "/assest/marks.csv", "start": 15359, "end": 20293}], "remote_package_size": 20293});
+    loadPackage({"files": [{"filename": "/assest/data.csv", "start": 0, "end": 5045}, {"filename": "/assest/hash_index.csv", "start": 5045, "end": 11115}, {"filename": "/assest/markets.csv", "start": 11115, "end": 15359}, {"filename": "/assest/marks.csv", "start": 15359, "end": 20293}, {"filename": "/assest/mm.csv", "start": 20293, "end": 21459}], "remote_package_size": 21459});
 
   })();
 
-// end include: C:\Users\hp\AppData\Local\Temp\tmpq_qvolci.js
-// include: C:\Users\hp\AppData\Local\Temp\tmpcbpwo1ne.js
+// end include: C:\Users\hp\AppData\Local\Temp\tmpudvaszuy.js
+// include: C:\Users\hp\AppData\Local\Temp\tmpg0ous9ze.js
 
     // All the pre-js content up to here must remain later on, we need to run
     // it.
     if (Module['$ww'] || (typeof ENVIRONMENT_IS_PTHREAD != 'undefined' && ENVIRONMENT_IS_PTHREAD)) Module['preRun'] = [];
     var necessaryPreJSTasks = Module['preRun'].slice();
-  // end include: C:\Users\hp\AppData\Local\Temp\tmpcbpwo1ne.js
-// include: C:\Users\hp\AppData\Local\Temp\tmp27ps23rk.js
+  // end include: C:\Users\hp\AppData\Local\Temp\tmpg0ous9ze.js
+// include: C:\Users\hp\AppData\Local\Temp\tmppy2udr0_.js
 
     if (!Module['preRun']) throw 'Module.preRun should exist because file support used it; did a pre-js delete it?';
     necessaryPreJSTasks.forEach((task) => {
       if (Module['preRun'].indexOf(task) < 0) throw 'All preRun tasks that exist before user pre-js code should remain after; did you replace Module or modify Module.preRun?';
     });
-  // end include: C:\Users\hp\AppData\Local\Temp\tmp27ps23rk.js
+  // end include: C:\Users\hp\AppData\Local\Temp\tmppy2udr0_.js
 
 
 // Sometimes an existing Module object exists with properties
@@ -810,7 +810,7 @@ function createExportWrapper(name, nargs) {
 // include: runtime_exceptions.js
 // end include: runtime_exceptions.js
 function findWasmBinary() {
-    var f = 'content_c.wasm';
+    var f = 'index_c.wasm';
     if (!isDataURI(f)) {
       return locateFile(f);
     }
@@ -4192,6 +4192,8 @@ function dbg(...args) {
       }
     };
 
+  var _emscripten_date_now = () => Date.now();
+
   var getHeapMax = () =>
       HEAPU8.length;
   
@@ -4509,6 +4511,8 @@ var wasmImports = {
   /** @export */
   _tzset_js: __tzset_js,
   /** @export */
+  emscripten_date_now: _emscripten_date_now,
+  /** @export */
   emscripten_resize_heap: _emscripten_resize_heap,
   /** @export */
   environ_get: _environ_get,
@@ -4525,9 +4529,9 @@ var wasmImports = {
 };
 var wasmExports = createWasm();
 var ___wasm_call_ctors = createExportWrapper('__wasm_call_ctors', 0);
-var _getmark = Module['_getmark'] = createExportWrapper('getmark', 1);
+var _getstring = Module['_getstring'] = createExportWrapper('getstring', 1);
 var _malloc = Module['_malloc'] = createExportWrapper('malloc', 1);
-var _getmarket = Module['_getmarket'] = createExportWrapper('getmarket', 1);
+var _getcost = Module['_getcost'] = createExportWrapper('getcost', 1);
 var _fflush = createExportWrapper('fflush', 1);
 var _strerror = createExportWrapper('strerror', 1);
 var _free = Module['_free'] = createExportWrapper('free', 1);

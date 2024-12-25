@@ -1,5 +1,6 @@
 #ifndef MENUMANAGER_H
 #define MENUMANAGER_H
+#include <random>
 #include <algorithm>
 #include<string>
 #include<iostream>
@@ -15,11 +16,15 @@ class MenuManager
 public:
     MenuManager(CSV &file, CSV &hs, CSV &markets, CSV &marks) :file(file), hs(hs), markets(markets), marks(marks) {}
 
-    ~MenuManager() {}
+    ~MenuManager() {
+        if(ss!=nullptr)
+        delete[] ss;
+    }
 
     hash<string> string_to_index;
 
     CSV file, hs, markets,marks;
+    string *ss=nullptr;
 
     int getindex(string patt)
     {//返回菜品在file中的行数
@@ -74,6 +79,12 @@ public:
             if(index==-1) return "null";
             return file(index, 2)+" "+file(index, 3);
         
+    }
+    string get_market(string patt)
+    {
+        int index=getindex(patt);
+        if(index==-1) return "null";
+        return file(index, 3);
     }
 
     // 模糊搜索
@@ -256,7 +267,65 @@ public:
         
     }
 
+    string  get_bybymarket(string patt)
+    {
+        int end;
+        int idx = string_to_index(patt) % 600 + 1;
+        if (markets(idx, 1) == "null")
+        {
+            end = -1;
+        }
+        else if (markets(idx, 1) != patt)
+        {
+            int tmp = 1;
+            while (markets(idx, 1) != patt)
+            {
+                if (markets((idx + tmp) % 600 + 1, 1) == "null" || markets((idx + tmp) % 600 + 1, 1) == patt)
+                {
+                    idx = (idx + tmp) % 600 + 1;
+                    break;
+                }
+                else if ((idx - tmp) <= 0)
+                {
+                    tmp++;
+                    continue;
+                }
+                else if (markets((idx - tmp), 1) == "null" || markets((idx - tmp), 1) == patt)
+                {
+                    idx = idx - tmp;
+                    break;
+                }
+                tmp++;
+            }
+            if (markets(idx, 1) == "null")
+            {
+                end = -1;
+            }
+            else
+            {
+                end = idx;
+            }
+        }
+        else
+        {
+            end = idx;
+        }
+
+        if (end == -1)
+            return "null";
+        else
+        {
+            if (markets.row_length(end)==2)
+                return file(stoi(markets(end, 2)), 1);
+                srand(time(0));
+            int index = rand() % (markets.row_length(end) - 2) + 2;
+            return file(stoi(markets(end, index)), 1);
+        } //
+    }
+
+    
+
 
 };
-#endif // MENUMANAGER_H
+#endif  //MENUMANAGER_H
 

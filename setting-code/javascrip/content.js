@@ -1,4 +1,5 @@
 Module.onRuntimeInitialized = function () {
+    
     function passStringToWasm(jsString) {
         const utf8Bytes = new TextEncoder().encode(jsString);
         const ptr = Module._malloc(utf8Bytes.length + 1); // +1 是为了终止符 '\0'
@@ -37,25 +38,26 @@ Module.onRuntimeInitialized = function () {
     
     }
     function addmap() {
+        let buy = JSON.parse(localStorage.getItem("buy")) || [];
+        if (!buy.includes(title))
+        {
+            buy.push(title);
+            localStorage.setItem("buy", JSON.stringify(buy));
+        }
+
         const chu = [8, 7, 12, 4, 3];
         const inputStr = title;
         const inputPtr = passStringToWasm(inputStr);
-        const resultPtr = Module._getmark(inputPtr);
+        const resultPtr = _getmark(inputPtr);
         r = getStringFromWasm(resultPtr);
         Module._free(inputPtr);
         Module._free(resultPtr);
-        console.log(r);
         r = r.split("|");
-        console.log(r);
         let d=[];
         for (let i = 0; i < 5; i++)
         {
             d.push(parseFloat(r[i]) / chu[i]);
         }
-        console.log(d);
-
-
-        
         const ctx = document.getElementById('radarChart').getContext('2d');
 
         const data = {
@@ -93,16 +95,30 @@ Module.onRuntimeInitialized = function () {
         });
     
     }
+    function get_market()
+    {
+        
+
+            const inputPtr = passStringToWasm(title);
+            const resultPtr = Module._getmarket(inputPtr);
+        re = getStringFromWasm(resultPtr);
+            Module._free(inputPtr);
+            Module._free(resultPtr);
+            document.getElementById("market").textContent = "店铺:" + re;
+        
+        
+    }
     document.getElementById("buttonto").addEventListener("click", function () {
         addmap();
     });
     const title = localStorage.getItem("now");
-    var price = localStorage.getItem("nowprice");
+    var price = JSON.parse(localStorage.getItem("price"))||{};
     document.querySelector(".header-title").innerHTML = title;
     document.querySelector(".name").innerHTML = title;
-    document.querySelector(".price").innerHTML = "￥" + price;
+    document.querySelector(".price").innerHTML = "￥" + price[title];
     var x = JSON.parse(localStorage.getItem("add_list")) || [];
     var add_ = document.getElementById("add_like");
+    get_market();
     if (x.indexOf(title) != -1) {
         add_.setAttribute('fill', '#ffe381'); // 添加引号
     }

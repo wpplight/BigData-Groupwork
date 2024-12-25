@@ -44,6 +44,7 @@ Module.onRuntimeInitialized = function () {
     }
     function getsearch() {
         console.log("getsearch");
+        let price = JSON.parse(localStorage.getItem("price")) || {};
             const content = document.getElementById("list");
             for (let i =  result.length - 2; i >= 0; i--) {
                 const li = document.createElement("li");
@@ -63,9 +64,11 @@ Module.onRuntimeInitialized = function () {
                 r = getStringFromWasm(resultPtr);
                 Module._free(inputPtr);
                 Module._free(resultPtr);
-                p_date.textContent = "价格:"+r+"元";
+                p_date.textContent = "价格:" + r + "元";
+                price[result[i]] = r;
                 li.appendChild(p_date);
-            }
+        }
+        localStorage.setItem("price", JSON.stringify(price));
             renew_listen();
         
 

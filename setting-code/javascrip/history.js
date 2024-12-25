@@ -12,6 +12,7 @@ function renew_listen() {
 }
 function gethistory(day) {
     let history = JSON.parse(localStorage.getItem(day)) || [];
+    let price = JSON.parse(localStorage.getItem( "price")) || {};
     if (history.length > 0)
     {
         const content = document.getElementById("history");
@@ -28,7 +29,7 @@ function gethistory(day) {
             p_time.textContent = "时间: " + day;
             li.appendChild(p_time);
             const p_date = document.createElement("p");
-            p_date.textContent = "价格：123";
+            p_date.textContent = "价格:"+ price[history[i]];
             li.appendChild(p_date);
            
         }

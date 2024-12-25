@@ -44,13 +44,48 @@ namespace recommend {
             return get_marksfrom_one();
         }
 
+        string get_one_market()
+        {
+            return get_marketfrom_one();
+        }
+
+        string get_market()
+        {
+            return get_marketfrom_all();
+        }
+
+        double* commend_dishes()
+        {
+            do_mark();
+            return mark_std;
+        }
+        string get_allmark()
+        {
+            string sh;
+            for(int i=0;i<4;i++)
+            {
+                sh+=to_string(mark_avg[i])+"|";
+            }
+            sh+=to_string(mark_avg[4]);
+            return sh;
+        }
+
+        string get_end(string s)
+        {
+           return menu.get_bybymarket(s);
+        }
+
 
 
 
         private:
             vector<string> recommend_list;
             MenuManager menu;
+            const int common[5] = {19, 21, 40, 8, 6};
+            const double common_std[5] = {40,35,60,20,15};
             int mark_num[5]={0};
+            double mark_avg[5]={0};
+            double mark_std[5]={0};
 
             void in(const char *s)
             {
@@ -99,11 +134,56 @@ namespace recommend {
                             }
                         }
                     }
+                    
                 }
                 for (int i = 0; i < 5;i++)
                 {
                     mark_num[i] /= len;
                 }
+            }
+
+            void getget()
+            {
+                int *k = nullptr;
+                for (auto s : recommend_list)
+                {
+                    if (s != "")
+                    {
+                        k = menu.get_mark(s);
+                        for (int i = 0; i < 5; i++)
+                        {
+                            mark_num[i] += k[i];
+                        }
+                    }
+                }
+                for (int i = 0; i < 5; i++)
+                {
+                    mark_avg[i] = (double)mark_num[i] / recommend_list.size();
+                }
+            }
+
+            void do_mark()
+            {   int *k=nullptr;
+                for(auto s:recommend_list)
+                {
+                    if(s!="")
+                    {
+                        k=menu.get_mark(s);
+                        for(int i=0;i<5;i++)
+                        {
+                            mark_num[i]+=k[i];
+                        }
+                    }
+                }
+                for(int i=0;i<5;i++)
+                {
+                    mark_avg[i]=(double)mark_num[i]/recommend_list.size();
+                    mark_std[i]=mark_avg[i]-common[i];
+                    mark_std[i]/=common_std[i];
+                    mark_std[i]*=mark_std[i];
+                }
+                
+                
             }
             string get_marksfrom_one()
             {
@@ -116,6 +196,24 @@ namespace recommend {
                 sh+=to_string(s[4]);
                 return sh;
             }
+            string get_marketfrom_one()
+            {
+                return menu.get_market(recommend_list[0]);
+            }
+
+            string get_marketfrom_all()
+            {
+                string sh;
+                for(auto s:recommend_list)
+                {
+                    if(s!="")
+                    {
+                        sh+=menu.get_market(s)+"|";
+                    }
+                }
+                return sh;
+            }
+
 
 
 };
